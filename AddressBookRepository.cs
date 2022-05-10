@@ -188,5 +188,42 @@ namespace AddressBookAdo
                 connection.Close();
             }
         }
+        public void RetrivePersonCityState(AddressBookModel model)
+        {
+            try
+            {
+                using (connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand("dbo.spRetrivePerson", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@city", model.city);
+                    command.Parameters.AddWithValue("@State", model.State);
+                    this.connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            model.Firstname = reader["Firstname"] == DBNull.Value ? default : reader["Firstname"].ToString();
+                            model.city = reader["city"] == DBNull.Value ? default : reader["city"].ToString();
+                            model.State = reader["State"] == DBNull.Value ? default : reader["State"].ToString();
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Data Not Found");
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }
