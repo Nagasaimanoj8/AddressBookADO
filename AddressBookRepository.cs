@@ -16,7 +16,8 @@ namespace AddressBookAdo
             using (connection = new SqlConnection(connectionString))
             {
                     Console.WriteLine("Connection is created");
-             }           
+             }
+            connection.Close();
         }
     }
 }
