@@ -292,8 +292,39 @@ namespace AddressBookAdo
                 connection.Close();
             }
         }
-    }
-         
-
-    }
+        public void CountByType(AddressBookModel model)
+        {
+            try
+            {
+                using (connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand("dbo.spCountType", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    this.connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            model.AddressBookId = Convert.ToInt32(reader["AddressBookId"] == DBNull.Value ? default : reader["AddressBookId"]);
+                            model.PersonType = reader["PersonType"] == DBNull.Value ? default : reader["PersonType"].ToString();
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Data Not Found");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+    }     
+}
 

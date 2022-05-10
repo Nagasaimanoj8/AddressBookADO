@@ -28,7 +28,8 @@ namespace AddressBookAdo
             addressBookRepo.RetrivePersonCityState(model);
             Console.WriteLine("Enter your city name to get the persons alphabetically");
             model.city = Console.ReadLine();
-            addressBookRepo.OrderByFirstName();            
+            addressBookRepo.OrderByFirstName();
+            addressBookRepo.CountByType();
             Console.ReadKey();
         }
     }
