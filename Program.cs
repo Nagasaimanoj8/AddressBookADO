@@ -12,7 +12,8 @@ namespace AddressBookAdo
         {
             Console.WriteLine("Welcome to addressBook");
             AddressBookRepository addressBookRepo = new AddressBookRepository();
-           
+            addressBookRepo.DeletePerson(model);
+            addressBookRepo.UpdateeData(model);
             addressBookRepo.GetAllData();
             Console.ReadKey();
         }

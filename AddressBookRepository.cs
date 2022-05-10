@@ -122,5 +122,32 @@ namespace AddressBookAdo
                 connection.Close();
             }
         }
+        public void DeletePerson(AddressBookModel model)
+        {
+            try
+            {
+                using (connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand("dbo.spDeletePerson", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@FirstName", model.Firstname);
+                    this.connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    if (result != 0)
+
+                        Console.WriteLine("Employee Updated sucessfully into table ");
+                    else
+                        Console.WriteLine("Not Updated");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }
