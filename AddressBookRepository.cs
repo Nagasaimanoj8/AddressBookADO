@@ -79,11 +79,11 @@ namespace AddressBookAdo
                     this.connection.Open();
                     var result = command.ExecuteNonQuery();
                     if (result != 0)
-                    
+
                         Console.WriteLine("Employee inserted sucessfully into table ");
                     else
-                            Console.WriteLine("Not inserted");
-                    
+                        Console.WriteLine("Not inserted");
+
                 }
             }
             catch (Exception ex)
@@ -298,7 +298,7 @@ namespace AddressBookAdo
             {
                 using (connection = new SqlConnection(connectionString))
                 {
-                    AddressBookModel model= new AddressBookModel();
+                    AddressBookModel model = new AddressBookModel();
                     SqlCommand command = new SqlCommand("dbo.spCountType", connection);
                     command.CommandType = CommandType.StoredProcedure;
                     this.connection.Open();
@@ -326,6 +326,65 @@ namespace AddressBookAdo
                 connection.Close();
             }
         }
-    }     
+        public void AddPersonAsFriendAndFamily(AddressBookModel model)
+        {
+            try
+            {
+                using (connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand("dbo.spCRUDoperations", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@PersonId", model.PersonId);
+                    command.Parameters.AddWithValue("@FirstName", model.Firstname);
+                    command.Parameters.AddWithValue("@Address", model.Address);
+                    command.Parameters.AddWithValue("@Lastname", model.Lastname);
+                    command.Parameters.AddWithValue("@MobileNumber", model.MobileNumber);
+                    command.Parameters.AddWithValue("@city", model.city);
+                    command.Parameters.AddWithValue("@State", model.State);
+                    command.Parameters.AddWithValue("@EmailId", model.EmailId);
+                    command.Parameters.AddWithValue("@Zip", model.Zip);
+                    command.Parameters.AddWithValue("@AddressBookName", model.AddressBookName);
+                    command.Parameters.AddWithValue("@AddressBookName", model.AddressBookId);
+                    connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    if (result != 0)
+
+                        Console.WriteLine("Person Added sucessfully into Family");
+                    else
+                        Console.WriteLine("Not Added");
+
+                    SqlCommand command1 = new SqlCommand("dbo.spCRUDoperations", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@PersonId", model.PersonId);
+                    command.Parameters.AddWithValue("@FirstName", model.Firstname);
+                    command.Parameters.AddWithValue("@Address", model.Address);
+                    command.Parameters.AddWithValue("@Lastname", model.Lastname);
+                    command.Parameters.AddWithValue("@MobileNumber", model.MobileNumber);
+                    command.Parameters.AddWithValue("@city", model.city);
+                    command.Parameters.AddWithValue("@State", model.State);
+                    command.Parameters.AddWithValue("@EmailId", model.EmailId);
+                    command.Parameters.AddWithValue("@Zip", model.Zip);
+                    command.Parameters.AddWithValue("@AddressBookName", model.AddressBookName);
+                    command.Parameters.AddWithValue("@AddressBookName", model.AddressBookId);
+                    connection.Open();
+                    var result1 = command.ExecuteNonQuery();
+                    if (result != 0)
+
+                        Console.WriteLine("Person Added sucessfully into Family");
+                    else
+                        Console.WriteLine("Not Added");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+    }
 }
+ 
 

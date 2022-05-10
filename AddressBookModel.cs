@@ -24,5 +24,6 @@ namespace AddressBookAdo
         public int AddressBookId { get; set; }
         public string PersonType { get; set; }
         public string AddressBookName { get; set; }
+        public string AddressBookType { get; set; } 
     }
 }

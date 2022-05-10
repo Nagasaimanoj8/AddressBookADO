@@ -30,6 +30,30 @@ namespace AddressBookAdo
             model.city = Console.ReadLine();
             addressBookRepo.OrderByFirstName();
             addressBookRepo.CountByType();
+        
+            model.Firstname = "Rahul";
+            model.Lastname = "Tripathi";
+            model.Address = "Jabalpur";
+            model.city = "Bhopal";
+            model.State = "Madhya Pradesh";
+            model.Zip = 42334;
+            model.MobileNumber = "8887131570";
+            model.EmailId = "rahul11@gmail.com";
+            model.AddressBookName = "Friends book";
+            model.AddressBookType = "Friend";
+
+            model.Firstname = "Rahul";
+            model.Lastname = "Tripathi";
+            model.Address = "Jabalpur";
+            model.city = "Bhopal";
+            model.State = "Madhya Pradesh";
+            model.Zip = 42334;
+            model.MobileNumber = "8887131570";
+            model.EmailId = "rahul11@gmail.com";
+            model.AddressBookName = "Family book";
+            model.AddressBookType = "Family";
+            addressBookRepo.AddPersonAsFriendAndFamily(model);
+
             Console.ReadKey();
         }
     }
