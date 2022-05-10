@@ -12,6 +12,7 @@ namespace AddressBookAdo
         {
             Console.WriteLine("Welcome to addressBook");
             AddressBookRepository addressBookRepo = new AddressBookRepository();
+           addressBookRepo.InsertData(model);
             addressBookRepo.GetAllData();
             Console.ReadKey();
         }

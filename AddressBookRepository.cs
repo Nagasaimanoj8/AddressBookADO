@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -56,6 +57,41 @@ namespace AddressBookAdo
                 this.connection.Close();
             }
 
+        }
+        public void InsertData(AddressBookModel model)
+        {
+            try
+            {
+                using (connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand("dbo.spAddressBook", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@PersonId", model.PersonId);
+                    command.Parameters.AddWithValue("@FirstName", model.Firstname);
+                    command.Parameters.AddWithValue("@Address", model.Address);
+                    command.Parameters.AddWithValue("@Lastname", model.Lastname);
+                    command.Parameters.AddWithValue("@MobileNumber", model.MobileNumber);
+                    command.Parameters.AddWithValue("@city", model.city);
+                    command.Parameters.AddWithValue("@EmailId", model.EmailId);
+                    command.Parameters.AddWithValue("@Zip", model.Zip);
+                    this.connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    if (result != 0)
+                    
+                        Console.WriteLine("Employee inserted sucessfully into table ");
+                    else
+                            Console.WriteLine("Not inserted");
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
     }
 }
