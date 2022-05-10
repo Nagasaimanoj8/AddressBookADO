@@ -292,12 +292,13 @@ namespace AddressBookAdo
                 connection.Close();
             }
         }
-        public void CountByType(AddressBookModel model)
+        public void CountByType()
         {
             try
             {
                 using (connection = new SqlConnection(connectionString))
                 {
+                    AddressBookModel model= new AddressBookModel();
                     SqlCommand command = new SqlCommand("dbo.spCountType", connection);
                     command.CommandType = CommandType.StoredProcedure;
                     this.connection.Open();
