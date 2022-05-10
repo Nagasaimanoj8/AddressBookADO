@@ -21,5 +21,8 @@ namespace AddressBookAdo
         public int Zip { get; set; }
         public string MobileNumber { get; set; }
         public string EmailId { get; set; }
-        }
+        public int AddressBookId { get; set; }
+        public string PersonType { get; set; }
+        public string AddressBookName { get; set; }
+    }
 }

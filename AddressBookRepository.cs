@@ -262,5 +262,38 @@ namespace AddressBookAdo
                 this.connection.Close();
             }
         }
+        // Adds the type of the record to address book.
+        public void AddRecordToAddressBookType(AddressBookModel model)
+        {
+            try
+            {
+                using (connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand("dbo.spAddAddressBookType", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@@PersonType", model.PersonType);
+                    command.Parameters.AddWithValue("@AddressBookName", model.AddressBookName);
+                    this.connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    var result = command.ExecuteNonQuery();
+                    if (result != 0)
+
+                        Console.WriteLine("Record Added sucessfully into AddressBookType ");
+                    else
+                        Console.WriteLine("Record Not Added into AddressBookTpye");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
-}
+         
+
+    }
+

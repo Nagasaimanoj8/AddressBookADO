@@ -16,11 +16,19 @@ namespace AddressBookAdo
             addressBookRepo.DeletePerson(model);
             addressBookRepo.UpdateeData(model);
             addressBookRepo.GetAllData();
-           addressBookRepo.RetrivePerson(model);
-            model.city = "NLR";
-            model.State = "AP";
-           addressBookRepo.RetrivePersonCityState(model);
-            addressBookRepo.OrderByFirstName();
+            Console.WriteLine("Enter your city");
+            model.city = Console.ReadLine();
+            Console.WriteLine("Enter your state");
+            model.State = Console.ReadLine();
+            addressBookRepo.RetrivePerson(model);
+            Console.WriteLine("Enter your city");
+            model.city = Console.ReadLine();
+            Console.WriteLine("Enter your state");
+            model.State = Console.ReadLine();
+            addressBookRepo.RetrivePersonCityState(model);
+            Console.WriteLine("Enter your city name to get the persons alphabetically");
+            model.city = Console.ReadLine();
+            addressBookRepo.OrderByFirstName();            
             Console.ReadKey();
         }
     }
