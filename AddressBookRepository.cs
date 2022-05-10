@@ -225,5 +225,42 @@ namespace AddressBookAdo
                 connection.Close();
             }
         }
+        public void OrderByFirstName()
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            try
+            {
+                using (connection)
+                {
+                    AddressBookModel model = new AddressBookModel();
+                    SqlCommand command = new SqlCommand("OrderByFirstName", this.connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    this.connection.Open();
+                    SqlDataReader dataReader = command.ExecuteReader();
+                    if (dataReader.HasRows)
+                    {
+                        while (dataReader.Read())
+                        {
+                            model.Firstname = dataReader.GetString(0);
+                            Console.WriteLine(model.Firstname);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No data found");
+                    }
+                    dataReader.Close();
+                    this.connection.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
     }
 }

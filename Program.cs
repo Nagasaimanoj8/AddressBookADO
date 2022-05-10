@@ -20,6 +20,8 @@ namespace AddressBookAdo
             model.city = "NLR";
             model.State = "AP";
            addressBookRepo.RetrivePersonCityState(model);
+            addressBookRepo.OrderByFirstName();
+            Console.ReadKey();
         }
     }
 }
