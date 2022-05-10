@@ -32,6 +32,7 @@ namespace AddressBookAdo
                             model.Firstname = reader["Firstname"] == DBNull.Value ? default : reader["Firstname"].ToString();
                             model.Lastname = reader["Lastname"] == DBNull.Value ? default : reader["Lastname"].ToString();
                             model.city = reader["city"] == DBNull.Value ? default : reader["city"].ToString();
+                            model.State = reader["State"] == DBNull.Value ? default : reader["State"].ToString();
                             model.Zip = Convert.ToInt32(reader["Zip"] == DBNull.Value ? default : reader["Zip"]);
                             //role.Phonenumber =Convert.ToDouble(reader["phone"]);
                             model.MobileNumber = reader["MobileNumber"] == DBNull.Value ? default : reader["MobileNumber"].ToString();
@@ -72,6 +73,7 @@ namespace AddressBookAdo
                     command.Parameters.AddWithValue("@Lastname", model.Lastname);
                     command.Parameters.AddWithValue("@MobileNumber", model.MobileNumber);
                     command.Parameters.AddWithValue("@city", model.city);
+                    command.Parameters.AddWithValue("@State", model.State);
                     command.Parameters.AddWithValue("@EmailId", model.EmailId);
                     command.Parameters.AddWithValue("@Zip", model.Zip);
                     this.connection.Open();
@@ -138,6 +140,43 @@ namespace AddressBookAdo
                         Console.WriteLine("Employee Updated sucessfully into table ");
                     else
                         Console.WriteLine("Not Updated");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+        public void RetrivePerson(AddressBookModel model)
+        {
+            try
+            {
+                using (connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand("dbo.spRetrivePerson", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@city", model.city);
+                    command.Parameters.AddWithValue("@State", model.State);
+                    this.connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            model.Firstname = reader["Firstname"] == DBNull.Value ? default : reader["Firstname"].ToString();
+                            model.city = reader["city"] == DBNull.Value ? default : reader["city"].ToString();
+                            model.State = reader["State"] == DBNull.Value ? default : reader["State"].ToString();
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Data Not Found");
+
+                    }
                 }
             }
             catch (Exception ex)
